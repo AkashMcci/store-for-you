@@ -16,6 +16,7 @@
 /* forward declarations *****************************************************/
 
 int isPalindrome(const char *str);
+int hasAlnum(const char *str);
 
 /****************************************************************************\
 |
@@ -50,6 +51,30 @@ int isPalindrome(const char *str)
 
 /****************************************************************************\
 |
+|   Function: hasAlnum
+|
+|   Purpose:    Checks if the given string contains at least one alphanumeric character.
+|
+|   Parameters:
+|       str     pointer to the input string
+|
+|   Returns:
+|       1 if the string contains an alphanumeric character, 0 otherwise
+|
+\****************************************************************************/
+int hasAlnum(const char *str)
+    {
+    while (*str)
+        {
+        if (isalnum((unsigned char)*str))
+            return 1;
+        str++;
+        }
+    return 0;
+    }
+
+/****************************************************************************\
+|
 |   Function: main
 |
 |   Purpose:    Main function to read input and check for palindrome.
@@ -66,9 +91,15 @@ int main(void)
     // Remove newline character if present
     str[strcspn(str, "\n")] = 0;
 
+    if (!hasAlnum(str))
+        {
+        printf("The entered string does not contain any alphanumeric characters.\n");
+        return 0;
+        }
+
     if (isPalindrome(str))
-        printf("Palindrome\n");
+        printf("The entered string is a palindrome.\n");
     else
-        printf("Not a palindrome\n");
+        printf("The entered string is not a palindrome.\n");
     return 0;
     }
