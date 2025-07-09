@@ -17,6 +17,7 @@
 
 int isPalindrome(const char *str);
 int hasAlnum(const char *str);
+int hasDuplicate(const char *str);
 
 /****************************************************************************\
 |
@@ -75,6 +76,37 @@ int hasAlnum(const char *str)
 
 /****************************************************************************\
 |
+|   Function: hasDuplicate
+|
+|   Purpose:    Checks if the given string contains any duplicate alphanumeric characters,
+|               ignoring case and non-alphanumeric characters.
+|
+|   Parameters:
+|       str     pointer to the input string
+|
+|   Returns:
+|       1 if the string contains duplicate alphanumeric characters, 0 otherwise
+|
+\****************************************************************************/
+int hasDuplicate(const char *str)
+    {
+    int seen[256] = {0};
+    while (*str)
+        {
+        if (isalnum((unsigned char)*str))
+            {
+            unsigned char ch = (unsigned char)tolower(*str);
+            if (seen[ch])
+                return 1;
+            seen[ch] = 1;
+            }
+        str++;
+        }
+    return 0;
+    }
+
+/****************************************************************************\
+|
 |   Function: main
 |
 |   Purpose:    Main function to read input and check for palindrome.
@@ -95,6 +127,15 @@ int main(void)
         {
         printf("The entered string does not contain any alphanumeric characters.\n");
         return 0;
+        }
+
+    if (hasDuplicate(str))
+        {
+        printf("The entered string contains duplicate alphanumeric characters.\n");
+        }
+    else
+        {
+        printf("The entered string does not contain duplicate alphanumeric characters.\n");
         }
 
     if (isPalindrome(str))
